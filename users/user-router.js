@@ -1,11 +1,11 @@
 const express = require('express');
 
 const db = require('../data/db-config.js');
-
+const Users = require('./model.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  db('users')
+  Users.list()
   .then(users => {
     res.json(users);
   })
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  db('users').where({ id })
+  Users.findById(id)
   .then(users => {
     const user = users[0];
 
